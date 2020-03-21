@@ -1,0 +1,37 @@
+#include<iostream>
+using namespace std;
+
+// 时间复杂度：O(N^2)
+// 空间复杂度：O(1)
+// 稳定
+// 适应场景：数据量比较小，接近有序
+
+void print(int* array, int size)
+{
+	for (int i = 0; i < size; ++i)
+	{
+		cout << array[i] << " ";
+	}
+	cout << endl;
+}
+void InsertSort(int* array, int size)
+{
+	for (int i = 0; i < size; ++i)
+	{
+		int k = array[i];
+		int j = 0;
+		for (j = i - 1; j >= 0 && k < array[j]; --j)
+		{
+			array[j + 1] = array[j];
+		}
+		array[j + 1] = k;
+	}
+}
+int main()
+{
+	int array[] = { 3, 5, 4, 9, 2, 0, 7, 1, 8, 6 };
+	int size = sizeof(array) / sizeof(int);
+	InsertSort(array, size);
+	print(array, size);
+	return 0;
+}
