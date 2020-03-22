@@ -1,0 +1,37 @@
+
+// 稳定性：稳定
+// 时间复杂度：O(N^2)
+// 空间复杂度：O(1)
+#include<iostream>
+using namespace std;
+void print(int* array, int size)
+{
+	for (int i = 0; i < size; ++i)
+	{
+		cout << array[i] << " ";
+	}
+	cout << endl;
+}
+void BubbleSort(int* array, int size)
+{
+	int a = 1;
+	for (int i = 0; i < size; ++i)
+	{
+		for (int j = 0; j < size - 1; ++j)
+		{
+			if (array[j + 1] < array[j])
+				swap(array[j + 1], array[j]);
+			a = 0;
+		}
+	}
+	if (a == 1)
+		return;
+}
+int main()
+{
+	int array[] = { 3, 5, 4, 9, 2, 0, 7, 1, 8, 6 };
+	int size = sizeof(array) / sizeof(int);
+	BubbleSort(array, size);
+	print(array, size);
+	return 0;
+}
