@@ -1,0 +1,87 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+void swap(int* a, int* b) {
+	int t = *a;
+	*a = *b;
+	*b = t;
+}
+void print(int* a, int size) {
+	for (int i = 0; i < size; i++) {
+		printf("%d ", a[i]);
+	}
+	printf("\n");
+}
+---------------------------------------------------------------
+1、Hover法：
+int partion1(int* a, int left, int right) {
+	int begin = left;
+	int end = right;
+	int pivot = a[right];
+	while (begin < end) {
+		while (begin < end && a[begin] <= pivot) {
+			begin++;
+		}
+		while (begin < end && a[end] >= pivot) {
+			end--;
+		}
+		swap(a + begin, a + end);
+	}
+	swap(a + end, a + right);//交换基准值
+	return begin;
+}
+-------------------------------------------------------
+2、挖坑法：
+int partion2(int* a, int left, int right)
+{
+	int begin = left;
+	int end = right;
+	int provte = a[right];
+	while (begin < end) {
+		while (begin < end && a[begin] <= provte) {
+			begin++;
+		}
+		a[end] = a[begin];
+		while (begin < end && a[end] >= provte) {
+			end--;
+		}
+		a[begin] = a[end];
+	}
+	a[begin] = provte;
+	return begin;
+}
+---------------------------------------------------------
+3、前后下标法：
+int partion3(int* a, int left, int right)
+{
+	int div = left;
+	int i = left;
+	for (; i < right; i++)
+	{
+		if (a[i] < a[right]) {
+			swap(a + i, a + div);
+			div++;
+		}
+	}
+	swap(a + div, a + right);//交换基准值
+	return div;
+}
+--------------------------------------------------
+void quicksort(int* a, int left, int right) {
+	if (left >= right) {
+		return;
+	}
+	int c = partion1(a, left, right);
+	quicksort(a, left, c - 1);
+	quicksort(a, c + 1, right);
+}
+void QuickSort(int* a, int size) {
+	quicksort(a, 0, size - 1);
+}
+int main() {
+	int a[] = { 3,8,4,5,7,9,6 };
+	int size = sizeof(a) / sizeof(int);
+	QuickSort(a, size);
+	print(a, size);
+	return 0;
+}
