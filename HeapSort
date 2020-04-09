@@ -1,0 +1,54 @@
+#include<stdio.h>
+#include<stdlib.h>
+void swap(int* a, int* b) {
+	int t = *a;
+	*a = *b;
+	*b = t;
+}
+void print(int* a, int size) {
+	for (int i = 0; i < size; i++) {
+		printf("%d ", a[i]);
+	}
+	printf("\n");
+
+}
+void heapify(int* a, int size, int index)
+{
+	int left = 2 * index + 1;
+	int right = 2 * index + 2;
+	if (left >= size)
+		return;
+	int max = left;
+	if (right < size && a[left] < a[right]) {
+		max = right;
+	}
+	if (a[index] >= a[max]) {
+		return;
+	}
+	swap(a + index, a + max);
+	heapify(a, size, max);
+}
+void CreatHeap(int* a, int size)
+{
+	for (int i = (size - 2) / 2; i >= 0; i--)
+	{
+		heapify(a, size, i);
+	}
+}
+void HeapSort(int* a, int size)
+{
+	CreatHeap(a, size);
+	for (int i = 0; i < size; i++)
+	{
+		swap(a, a + size - i - 1);
+		heapify(a, size - i - 1, 0);
+	}
+}
+int main()
+{
+	int array[] = { 9, 6 , 5 , 8, 6 ,7, 4, 3, 0, 1, 2 };
+	int size = sizeof(array) / sizeof(int);
+	HeapSort(array, size);
+	print(array, size);
+	return 0;
+}
